@@ -1,26 +1,26 @@
-# replay1017 complete source export (rust-v0.163.0 replay).
+# replay1119 complete source export (rust-v0.170.0 replay).
 # The immutable source identity is the final product/gate commit. This manifest
 # and the patches below live in a later evidence-only commit so they cannot
 # claim the commit that contains themselves.
 schema: cwf/replay-series/v2
 kind: replay_series
-series: replay1017
+series: replay1119
 upstream: openai/codex
-upstream_tag: rust-v0.163.0
-official_tag_object: 129b8ec7ee6f4511557a4856279f529025c25af4
-peeled_base_commit: 83086188ae0614bd882818ff1aa23f3194962012
-source_commit: 1702d2d1b9fecdd632042991b333596f56edeeee
-source_tree: 51d9287d59e4d606f1fd290809969cd797ebaaf0
-expected_release_tree: 51d9287d59e4d606f1fd290809969cd797ebaaf0
+upstream_tag: rust-v0.170.0
+official_tag_object: 72f97c309fb0f78b6f35cce455adf416e6a51571
+peeled_base_commit: 29eb79e9866b3262a777fdf8195c1b9e63684c91
+source_commit: 0a666e99ea5ea90e74b95c7654b9fc987f216007
+source_tree: c8f5976605716e344524416bd7b44cb556c436e8
+expected_release_tree: c8f5976605716e344524416bd7b44cb556c436e8
 series_entries: 37
-cargo_lock_sha256: c1630d9246a9e1468c5cb51d2bf3e8bab30d1ae410e261bf0e2210552e7dcae8
-module_bazel_lock_sha256: c38d161a51f8e1ed0bfb51d8677a545229809bd268da394fe900fecb181c0f3c
+cargo_lock_sha256: 3bd770fcba9f1cb9c998bf496c5c9f3bca7908fc9d462d8c4b3a9fd805f49202
+module_bazel_lock_sha256: 8104d001aece06ef02339294da226f327748f9e8e737bc51544bddf3e2eea0bf
 v8_archive_sha256_x86_64-unknown-linux-gnu: 5869fdb7071b1f21f200a97ce97d20125877e0f31cd802ed99de2c53f488b06c
 v8_archive_sha256_aarch64-unknown-linux-gnu: b7177d52ad3337272fe0d3b8e778239c821a95c25d5959dec62b9efd654f7dd3
 artifact_identity: external_receipt
 review_identity: gate_runtime
-release_id: ctd-rust-v0.163.0-r1
-release_tag: transportd/ctd-rust-v0.163.0-r1
+release_id: ctd-rust-v0.170.0-r1
+release_tag: transportd/ctd-rust-v0.170.0-r1
 release_status: unapproved
 patches:
   - full/0001-replay0905-patch-1-8-transportd-infra-ours-only.patch
