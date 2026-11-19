@@ -54,7 +54,7 @@ docker compose up -d codex-transd
 # 2. 手工检查 /info 与 build facts（dark deploy）
 docker compose exec codex-transportd /usr/local/bin/codex-transportd healthcheck
 # 3. 单账号灰度：目标账号 Extra 设置
-#    openai_codex_transport_mode=rust_sidecar, openai_codex_protocol_mode=v0_144
+#    openai_codex_transport_mode=rust_sidecar, openai_codex_protocol_mode=transportd
 # 4. 扩量/全局切换：gateway.openai_codex_transport.mode=rust_sidecar
 ```
 
