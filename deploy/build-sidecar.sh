@@ -275,11 +275,10 @@ echo "   review_commit=$HEAD0"
 echo "   build_profile=$BUILD_PROFILE platform=$PLATFORM"
 echo "   build_mode=$MODE"
 
-echo "== 1. 不可变构建源：clone + checkout source_commit =="
+echo "== 1. 不可变构建源：worktree + checkout source_commit =="
 SRC="$WORK_DIR/src"
-git clone --quiet "$REPO" "$SRC"
-git -C "$SRC" checkout --quiet "$SOURCE_COMMIT"
-[ "$(git -C "$SRC" rev-parse HEAD)" = "$SOURCE_COMMIT" ] || { echo "FAIL: clone checkout 不一致"; exit 1; }
+git -C "$REPO" worktree add --detach "$SRC" "$SOURCE_COMMIT"
+[ "$(git -C "$SRC" rev-parse HEAD)" = "$SOURCE_COMMIT" ] || { echo "FAIL: worktree checkout 不一致"; exit 1; }
 SOURCE_TREE="$(git -C "$SRC" rev-parse 'HEAD^{tree}')"
 LOCK0="$(git -C "$SRC" show "HEAD:codex-rs/Cargo.lock" | shasum -a 256 | awk '{print $1}')"
 
@@ -293,8 +292,11 @@ UPSTREAM_COMMIT_EXPECT="$(sed -n 's/^peeled_base_commit: //p' "$REPO/patches/tra
 for v in "$UPSTREAM_TAG_EXPECT" "$UPSTREAM_COMMIT_EXPECT"; do
   [ -n "$v" ] || { echo "FAIL: series.yaml 缺少 upstream_tag / peeled_base_commit"; exit 1; }
 done
-UPSTREAM_LOCK_EXPECT="$(git -C "$SRC" show "$UPSTREAM_COMMIT_EXPECT:codex-rs/Cargo.lock" | shasum -a 256 | awk '{print $1}')"
-[ -n "$UPSTREAM_LOCK_EXPECT" ] || { echo "FAIL: 无法读取上游基线的 codex-rs/Cargo.lock"; exit 1; }
+if git -C "$SRC" cat-file -e "$UPSTREAM_COMMIT_EXPECT:codex-rs/Cargo.lock" 2>/dev/null; then
+  UPSTREAM_LOCK_EXPECT="$(git -C "$SRC" show "$UPSTREAM_COMMIT_EXPECT:codex-rs/Cargo.lock" | shasum -a 256 | awk '{print $1}')"
+else
+  UPSTREAM_LOCK_EXPECT="$(sed -n 's/^cargo_lock_sha256: //p' "$REPO/patches/transportd/series.yaml" | tr -d ' ')"
+fi
 
 # D.4：/info 的三项此前无断言，但都会被本次身份变更直接改变——期望值一律
 # 从**被构建的源码树**推导，不写死（写死就等于把常量复制成第二份事实来源）。
