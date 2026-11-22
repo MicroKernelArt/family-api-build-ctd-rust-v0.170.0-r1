@@ -9,7 +9,7 @@ upstream: openai/codex
 upstream_tag: rust-v0.170.0
 official_tag_object: 72f97c309fb0f78b6f35cce455adf416e6a51571
 peeled_base_commit: 29eb79e9866b3262a777fdf8195c1b9e63684c91
-source_commit: 0a666e99ea5ea90e74b95c7654b9fc987f216007
+source_commit: 7154a5b3f43a3e02131379e72103c53e8c61a5d5
 source_tree: c8f5976605716e344524416bd7b44cb556c436e8
 expected_release_tree: c8f5976605716e344524416bd7b44cb556c436e8
 series_entries: 37
